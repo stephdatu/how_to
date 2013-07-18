@@ -1,8 +1,9 @@
 HowTo::Application.routes.draw do
-  resources :tasks
+  root :to => "instructions#index"
 
-
-  resources :instructions
+  resources :instructions do
+    resources :tasks
+  end
 
 
   # The priority is based upon order of creation:

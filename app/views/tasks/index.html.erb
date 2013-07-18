@@ -13,8 +13,8 @@
   <tr>
     <td><%= task.task %></td>
     <td><%= task.instruction %></td>
-    <td><%= link_to 'Show', task %></td>
-    <td><%= link_to 'Edit', edit_task_path(task) %></td>
+    <td><%= link_to 'Show', instruction_task_path %></td>
+    <td><%= link_to 'Edit', edit_instruction_task_path(task) %></td>
     <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
@@ -22,4 +22,4 @@
 
 <br />
 
-<%= link_to 'New Task', new_task_path %>
+<%= link_to 'New Task', new_instruction_task_path %>

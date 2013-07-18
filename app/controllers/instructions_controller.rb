@@ -53,9 +53,7 @@ class InstructionsController < ApplicationController
     end
   end
 
-  # PUT /instructions/1
-  # PUT /instructions/1.json
-  def update
+   def update
     @instruction = Instruction.find(params[:id])
 
     respond_to do |format|

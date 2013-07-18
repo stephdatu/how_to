@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_filter :find_instruction
+  before_filter :find_task, :only => [:show, :edit, :update, :destroy]
   # GET /tasks
   # GET /tasks.json
   def index
@@ -10,21 +12,15 @@ class TasksController < ApplicationController
     end
   end
 
-  # GET /tasks/1
-  # GET /tasks/1.json
-  def show
-    @task = Task.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @task }
-    end
+  def show
+    @task = @instruction.tasks.build(params[:task])
   end
 
   # GET /tasks/new
   # GET /tasks/new.json
   def new
-    @task = Task.new
+    @task = @instruction.tasks.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,50 +30,46 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    @task = Task.find(params[:id])
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(params[:task])
-
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        format.json { render json: @task, status: :created, location: @task }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    @task = @instruction.tasks.build(params[:task])
+    if @task.save
+      flash[:notice] = "Task has been created."
+      redirect_to [@instruction, @task]
+    else
+      flash[:alert] = "Task has not been created."
+      render :action => "new"
     end
   end
 
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
-    @task = Task.find(params[:id])
-
-    respond_to do |format|
-      if @task.update_attributes(params[:task])
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.update_attributes(params[:task])
+      flash[:notice] = "Task has been updated."
+      redirect_to [@instruction, @task]
+    else
+      flash[:alert] = "Task has not been updated."
+      render :action => "edit"
     end
   end
 
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
-
-    respond_to do |format|
-      format.html { redirect_to tasks_url }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "Task has been deleted."
+    redirect_to @instruction
   end
+
+  private
+    def find_instruction
+      @instruction = Instruction.find(params[:instruction_id])
+    end
+    def find_task
+      @task = @instruction.tasks.find(params[:id])
+    end
 end

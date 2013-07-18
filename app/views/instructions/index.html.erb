@@ -1,4 +1,4 @@
-<h1>Listing instructions</h1>
+<h2>Instructions</h2>
 
 <table>
   <tr>
@@ -11,7 +11,7 @@
 
 <% @instructions.each do |instruction| %>
   <tr>
-    <td><%= instruction.name %></td>
+    <td><%= link_to instruction.name, instruction %></td>
     <td><%= instruction.description %></td>
     <td><%= link_to 'Show', instruction %></td>
     <td><%= link_to 'Edit', edit_instruction_path(instruction) %></td>
