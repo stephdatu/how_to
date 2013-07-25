@@ -14,7 +14,6 @@ class TasksController < ApplicationController
 
 
   def show
-    @task = @instruction.tasks.build(params[:task])
   end
 
   # GET /tasks/new
@@ -38,7 +37,7 @@ class TasksController < ApplicationController
     @task = @instruction.tasks.build(params[:task])
     if @task.save
       flash[:notice] = "Task has been created."
-      redirect_to [@instruction, @task]
+      redirect_to [@instruction]
     else
       flash[:alert] = "Task has not been created."
       render :action => "new"
