@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>HowTo</title>
+  <title>How To: An Instructables Knock Off | By Steph Datu</title>
+  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div class="topbar">
+  <div class="fill">
+    <div class="container">
+      <a class="brand" href="/">Instructions Lists App</a>
+      <ul class="nav">
+        <li class="active"><a href="/instructions">Instruction Lists</a></li>
+        <li ><%= link_to 'New Instruction List', new_instruction_path %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 <% flash.each do |key, value| %>
   <div class='flash' id='<%= key %>'>
@@ -15,7 +28,15 @@
 <% end %>
 
 
-<%= yield %>
+<div class="container">
+  <%= yield %>
+</div>
+
+<footer>
+  <div class="container">
+    By Stephanie Datu | Layout by Rails Girls 2013
+  </div>
+</footer>
 
 </body>
 </html>
